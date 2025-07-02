@@ -1,0 +1,44 @@
+name: Two-Stage Dynamic Environment
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+      - staging
+
+jobs:
+  # Job #1: Decide which environment to use based on the branch
+  determine-environment:
+    runs-on: ubuntu-latest
+    outputs:
+      # Define an output named 'name'
+      name: ${{ steps.decide_env.outputs.name }}
+    steps:
+      - name: Decide environment name
+        id: decide_env
+        run: |
+          if [[ "${{ github.ref_name }}" == "main" ]]; then
+            echo "name=production" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ github.ref_name }}" == "staging" ]]; then
+            echo "name=staging" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=sandbox" >> "$GITHUB_OUTPUT"
+          fi
+
+  # Job #2: Use the output from the first job to set the environment
+  deploy:
+    runs-on: ubuntu-latest
+    # This job depends on the 'determine-environment' job finishing successfully
+    needs: determine-environment
+    # Set the environment dynamically using the output from the 'needs' context
+    environment: ${{ needs.determine-environment.outputs.name }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy
+        run: |
+          echo "Branch is '${{ github.ref_name }}'"
+          echo "Deploying to the '${{ job.environment }}' environment..."
+          # Your repeated deployment steps go here
