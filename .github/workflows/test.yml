@@ -18,7 +18,7 @@ jobs:
           echo "The job is running in the '${{ github.environment }}' github environment."
           echo "The job is running in the '${{ job.environment }}' job environment."
           echo "The Wiggle is local '${{LOCAL_WIGGLE}}'
-          echo "The env wiggle is '${{env.WIGGLE}}'
+          echo "The env wiggle is '${{ vars.WIGGLE}}'
           echo "If the above line is empty, the problem is not repository-specific."
         env:
-          LOCAL_WIGGLE: ${{env.WIGGLE}}
+          LOCAL_WIGGLE: ${{ vars.WIGGLE}}
