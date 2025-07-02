@@ -1,0 +1,21 @@
+name: Dynamic Environment Workflow
+
+on:
+  push
+
+# Define your variable at the workflow level
+env:
+  AWS_LANDSCAPE: staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    # Correctly reference the 'env' context variable using expression syntax
+    environment: ${{ env.AWS_LANDSCAPE }}
+    
+    steps:
+      - name: Check Job Context
+        run: |
+          echo "The job is running in the '${{ job.environment }}' environment."
+          echo "This value came from the AWS_LANDSCAPE variable."
