@@ -1,0 +1,15 @@
+name: Example Workflow
+on: workflow_dispatch
+env:
+  GLOBAL_VAR: global_value
+jobs:
+  environment: clean-room-test
+  example_job:
+    runs-on: ubuntu-latest
+    env:
+      JOB_VAR: job_value
+    steps:
+      - name: Example Step
+        run: echo "$GLOBAL_VAR and $JOB_VAR and $STEP_VAR and ${{env.WIGGLE}}"
+        env:
+          STEP_VAR: step_value
