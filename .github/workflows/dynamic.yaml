@@ -4,12 +4,13 @@ on:
   push
 
 # Define your variable at the workflow level
-env:
-  AWS_LANDSCAPE: staging
+
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      AWS_LANDSCAPE: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
     
     # Correctly reference the 'env' context variable using expression syntax
     environment: ${{ env.AWS_LANDSCAPE }}
