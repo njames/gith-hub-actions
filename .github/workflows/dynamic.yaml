@@ -13,5 +13,6 @@ jobs:
     steps:
     - name: Use variables
       run: |
+        echo "and our wiggle is : ${{ vars.WIGGLE }}"
         echo "environment variable : ${{ vars.ENVIRONMENT_STAGE }}"
 
