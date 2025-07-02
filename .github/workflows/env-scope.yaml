@@ -3,8 +3,8 @@ on: workflow_dispatch
 env:
   GLOBAL_VAR: global_value
 jobs:
-  environment: clean-room-test
   example_job:
+    environment: clean-room-test
     runs-on: ubuntu-latest
     env:
       JOB_VAR: job_value
