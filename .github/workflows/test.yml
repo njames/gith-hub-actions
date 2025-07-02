@@ -1,0 +1,19 @@
+name: Clean Room Environment Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-environment:
+    runs-on: ubuntu-latest
+    # Target a brand new, non-existent environment.
+    # GitHub will create an empty one during the run.
+    environment: clean-room-test
+
+    steps:
+      - name: Check Job Environment Context
+        run: |
+          echo "The job is running in the '${{ job.environment }}' environment."
+          echo "If the above line is empty, the problem is not repository-specific."
