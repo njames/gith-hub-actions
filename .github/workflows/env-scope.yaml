@@ -10,7 +10,7 @@ env:
   CONDITIONAL: ${{ github.ref_name == 'main' && 'clean-room-test' || 'summer-time' }}
 jobs:
   example_job:
-    environment: ${{LANDSCAPE}}
+    environment: $LANDSCAPE
     runs-on: ubuntu-latest
     env:
       JOB_VAR: job_value
