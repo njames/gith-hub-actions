@@ -15,5 +15,5 @@ jobs:
     steps:
       - name: Check Job Environment Context
         run: |
-          echo "The job is running in the '${{ job.environment }}' environment."
+          echo "The job is running in the '${{ github.environment }}' environment."
           echo "If the above line is empty, the problem is not repository-specific."
