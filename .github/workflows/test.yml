@@ -14,8 +14,9 @@ jobs:
 
     steps:
       - name: Check Job Environment Context
+        env: LOCAL_WIGGLE ${{env.WIGGLE}}
         run: |
           echo "The job is running in the '${{ github.environment }}' environment."
           echo "The job is running in the '${{ jobs.test-environment.environment }}' environment."
-        
+          enco "The Wiggle is '${{LOCAL_WIGGLE}}'
           echo "If the above line is empty, the problem is not repository-specific."
