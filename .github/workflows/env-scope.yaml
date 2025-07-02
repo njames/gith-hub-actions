@@ -1,8 +1,9 @@
 name: Example Workflow
 on: 
-  branches:
-    - main
-    - 'feature/*' # Target feature branches as well
+  push:
+    branches:
+      - main
+      - 'feature/*' # Target feature branches as well
 env:
   GLOBAL_VAR: global_value
   LANDSCAPE: summer-time
