@@ -1,15 +1,20 @@
 name: Example Workflow
-on: workflow_dispatch
+on: 
+  branches:
+    - main
+    - 'feature/*' # Target feature branches as well
 env:
   GLOBAL_VAR: global_value
+  LANDSCAPE: summer-time
+  CONDITIONAL: ${{ github.ref_name == 'main' && 'clean-room-test' || 'summer-time' }}
 jobs:
   example_job:
-    environment: clean-room-test
+    environment: ${{LANDSCAPE}}
     runs-on: ubuntu-latest
     env:
       JOB_VAR: job_value
     steps:
       - name: Example Step
-        run: echo "$GLOBAL_VAR and $JOB_VAR and $STEP_VAR and ${{env.WIGGLE}}"
+        run: echo "$GLOBAL_VAR and $JOB_VAR and $STEP_VAR and ${{env.WIGGLE}} global $LANDSCAPE but $CONDITIONAL"
         env:
           STEP_VAR: step_value
